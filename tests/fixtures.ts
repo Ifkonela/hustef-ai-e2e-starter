@@ -53,6 +53,14 @@ export const test = base.extend<{}, WorkerFixtures>({
     await use(context);
   },
 
+  // Later releases show a cookie consent dialog that blocks clicks. Dismiss it whenever it appears.
+  page: async ({ page }, use) => {
+    await page.addLocatorHandler(page.getByRole('dialog', { name: 'Cookies' }), async (dialog) => {
+      await dialog.getByRole('button', { name: 'Only necessary' }).click();
+    });
+    await use(page);
+  },
+
   gremlinRelease: [
     async ({ browser }, use, workerInfo) => {
       if (pinnedRelease) {
