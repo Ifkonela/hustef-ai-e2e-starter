@@ -1,0 +1,51 @@
+{
+  "version": 1,
+  "createdAt": "2026-10-06T14:00:00Z",
+  "release": 3,
+  "tool": "claude-code",
+  "model": "claude-sonnet-5-5",
+  "entries": [
+    {
+      "test": "tests/transfer.spec.ts:116 > Domestic transfer > [high] Minimum fee of 200 HUF applies up to the threshold",
+      "file": "tests/transfer.spec.ts",
+      "error": "expect(locator).toHaveText(expected) failed: expected \"200 HUF\", received \"300 HUF\" (review-fee, 10,000 HUF from Everyday Account)",
+      "classification": "BUG",
+      "reason": "Fee rule: 0.3% of the amount, min 200, max 6,000 HUF. 0.3% of 10,000 HUF is 30, so the minimum 200 HUF applies. The page shows 300 HUF (3%).",
+      "change": "Added conditional test.fail(gremlinRelease === 3, ...) with BUG message. Assertions unchanged.",
+      "expectedValueChanged": false,
+      "expected": "200 HUF",
+      "observed": "300 HUF",
+      "tracePath": "test-results/tests-transfer-Domestic-tr-29b74-applies-up-to-the-threshold-chromium/trace.zip",
+      "model": "claude-sonnet-5-5",
+      "tool": "claude-code"
+    },
+    {
+      "test": "tests/transfer.spec.ts:125 > Domestic transfer > [high] Fee is 0.3% of the amount above the minimum",
+      "file": "tests/transfer.spec.ts",
+      "error": "expect(locator).toHaveText(expected) failed: expected \"201 HUF\", received \"2,010 HUF\" (67,000 HUF from Everyday Account)",
+      "classification": "BUG",
+      "reason": "0.3% of 67,000 HUF is 201 HUF. The page shows 2,010 HUF (3%).",
+      "change": "Added conditional test.fail(gremlinRelease === 3, ...) with BUG message. Assertions unchanged.",
+      "expectedValueChanged": false,
+      "expected": "201 HUF",
+      "observed": "2,010 HUF",
+      "tracePath": "test-results/tests-transfer-Domestic-tr-8753b-he-amount-above-the-minimum-chromium/trace.zip",
+      "model": "claude-sonnet-5-5",
+      "tool": "claude-code"
+    },
+    {
+      "test": "tests/transfer.spec.ts:134 > Domestic transfer > [high] Fee is capped at 6,000 HUF",
+      "file": "tests/transfer.spec.ts",
+      "error": "expect(locator).toHaveText(expected) failed: expected \"5,997 HUF\", received \"59,970 HUF\" (1,999,000 HUF from Savings Account)",
+      "classification": "BUG",
+      "reason": "0.3% of 1,999,000 HUF is 5,997 HUF, below the 6,000 HUF cap. The page shows 59,970 HUF (3%, cap not applied).",
+      "change": "Added conditional test.fail(gremlinRelease === 3, ...) with BUG message. Assertions unchanged.",
+      "expectedValueChanged": false,
+      "expected": "5,997 HUF",
+      "observed": "59,970 HUF",
+      "tracePath": "test-results/tests-transfer-Domestic-tr-b0ace--Fee-is-capped-at-6-000-HUF-chromium/trace.zip",
+      "model": "claude-sonnet-5-5",
+      "tool": "claude-code"
+    }
+  ]
+}

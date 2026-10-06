@@ -17,7 +17,7 @@ test.describe('Sign in and sign out', () => {
     await expect(login.password).toBeVisible();
     await expect(login.signInButton).toBeVisible();
 
-    // 2. Fill Username with GREMLIN_USER and Password with GREMLIN_PASSWORD, click 'Sign in'
+    // 2. Fill User ID with GREMLIN_USER and Password with GREMLIN_PASSWORD, click 'Log in'
     await login.signIn(env('GREMLIN_USER'), env('GREMLIN_PASSWORD'));
 
     await expect(page).toHaveURL(/\/dashboard$/);
@@ -29,7 +29,7 @@ test.describe('Sign in and sign out', () => {
   test('[high] Sign in rejected for a wrong password', async ({ page }) => {
     const login = new LoginPage(page);
 
-    // 1. On /login fill GREMLIN_USER with a wrong password, click 'Sign in'
+    // 1. On /login fill GREMLIN_USER with a wrong password, click 'Log in'
     await login.goto();
     await login.signIn(env('GREMLIN_USER'), 'not-the-password');
 

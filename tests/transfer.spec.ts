@@ -45,17 +45,17 @@ test.describe('Domestic transfer', () => {
     await expect(review.detail('Fee')).toHaveText('200 HUF');
     await expect(review.detail('Total')).toHaveText('5,200 HUF');
 
-    // 2. Enter the Transaction PIN and click 'Confirm transfer'
+    // 2. Enter the Transaction PIN and click 'Send money'
     await review.enterPin(env('GREMLIN_PIN'));
     await review.confirm();
 
-    // 3. Approve the payment in the 'Gremlin Secure' frame of the 'Confirm payment' dialog
+    // 3. Approve the payment in the frame of the 'Payment approval' dialog
     await expect(review.confirmDialog).toBeVisible();
     await expect(review.approvalHeading).toHaveText('Approve this payment of 5,200 HUF');
     await review.approve();
 
     await expect(page).toHaveURL(/\/transfer\/done$/);
-    await expect(page.getByRole('heading', { level: 1, name: 'Transfer submitted' })).toBeVisible();
+    await expect(page.getByRole('heading', { level: 1, name: 'Money sent' })).toBeVisible();
     await expect(page.getByText(/^Reference: GB-[A-Z0-9]{6}$/)).toBeVisible();
     await expect(page.getByRole('term')).toHaveText(['Paid to', 'IBAN', 'Amount', 'Fee', 'Total', 'New balance, Everyday Account']);
     await expect(page.getByRole('definition')).toHaveText([
@@ -69,10 +69,10 @@ test.describe('Domestic transfer', () => {
   });
 
   test('[medium] Empty transfer form shows required-field messages', async ({ page }) => {
-    // 1. Click 'Continue' with everything empty
+    // 1. Click 'Review transfer' with everything empty
     await transfer.submit();
     await expect(page).toHaveURL(/\/transfer$/);
-    await expect(transfer.message('Enter a beneficiary name.')).toBeVisible();
+    await expect(transfer.message('Enter a payee name.')).toBeVisible();
     await expect(transfer.message('Check the IBAN first.')).toBeVisible();
     await expect(transfer.message('Enter an amount greater than 0.')).toBeVisible();
   });
@@ -91,7 +91,7 @@ test.describe('Domestic transfer', () => {
   });
 
   test('[high] Zero amount is rejected', async ({ page }) => {
-    // 1. With Kiss Péter verified, enter amount 0 and click 'Continue'
+    // 1. With Kiss Péter verified, enter amount 0 and click 'Review transfer'
     await useKissPeter();
     await transfer.enterAmount(0);
     await transfer.submit();
@@ -113,7 +113,8 @@ test.describe('Domestic transfer', () => {
     }
   }
 
-  test('[high] Minimum fee of 200 HUF applies up to the threshold', async () => {
+  test('[high] Minimum fee of 200 HUF applies up to the threshold', async ({ gremlinRelease }) => {
+    test.fail(gremlinRelease === 3, 'BUG: fee on release 3: expected 200 HUF for 10,000 HUF (0.3% of the amount, min 200, max 6,000 HUF), observed 300 HUF (3%). Not healed, see heal-report.json.');
     // 1. Data-driven: for each row choose account, Kiss Péter, amount, Continue, read the review page
     await checkFeeRows([
       { from: 'Everyday Account', amount: 1, fee: 200, total: 201 },
@@ -122,7 +123,8 @@ test.describe('Domestic transfer', () => {
     ]);
   });
 
-  test('[high] Fee is 0.3% of the amount above the minimum', async () => {
+  test('[high] Fee is 0.3% of the amount above the minimum', async ({ gremlinRelease }) => {
+    test.fail(gremlinRelease === 3, 'BUG: fee on release 3: expected 201 HUF for 67,000 HUF (0.3% of the amount, min 200, max 6,000 HUF), observed 2,010 HUF (3%). Not healed, see heal-report.json.');
     // 1. Data-driven: for each row choose account, Kiss Péter, amount, Continue, read the review page
     await checkFeeRows([
       { from: 'Everyday Account', amount: 67000, fee: 201, total: 67201 },
@@ -131,7 +133,8 @@ test.describe('Domestic transfer', () => {
     ]);
   });
 
-  test('[high] Fee is capped at 6,000 HUF', async () => {
+  test('[high] Fee is capped at 6,000 HUF', async ({ gremlinRelease }) => {
+    test.fail(gremlinRelease === 3, 'BUG: fee on release 3: expected 5,997 HUF for 1,999,000 HUF (0.3% of the amount, min 200, max 6,000 HUF), observed 59,970 HUF (3%, cap not applied). Not healed, see heal-report.json.');
     // 1. Data-driven: for each row choose account, Kiss Péter, amount, Continue, read the review page
     await checkFeeRows([
       { from: 'Savings Account', amount: 1999000, fee: 5997, total: 2004997 },

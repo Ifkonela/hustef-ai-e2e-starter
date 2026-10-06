@@ -29,8 +29,11 @@ export class DashboardPage {
     await this.page.goto('/dashboard');
   }
 
-  /** The account regions have no accessible name, so they are found by their heading. */
+  /** Accounts are rows of the 'Your accounts' table, found by their row header. */
   account(name: AccountName): Locator {
-    return this.page.getByRole('region').filter({ has: this.page.getByRole('heading', { name }) });
+    return this.page
+      .getByRole('table', { name: 'Your accounts' })
+      .getByRole('row')
+      .filter({ has: this.page.getByRole('rowheader', { name, exact: true }) });
   }
 }

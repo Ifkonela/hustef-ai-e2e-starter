@@ -15,11 +15,12 @@ export class ReviewPage {
     this.details = page.getByRole('table', { name: 'Transfer details' });
     // Custom element with a closed shadow DOM, not in the accessibility tree: the test id is the only handle.
     this.pin = page.getByTestId('secure-pin');
-    this.confirmButton = page.getByRole('button', { name: 'Confirm transfer' });
-    this.confirmDialog = page.getByRole('dialog', { name: 'Confirm payment' });
-    this.secureFrame = page.getByTitle('Gremlin Secure').contentFrame();
+    this.confirmButton = page.getByRole('button', { name: 'Send money' });
+    this.confirmDialog = page.getByRole('dialog', { name: 'Payment approval' });
+    // The iframe has no title in release 2, so it is found inside the approval dialog.
+    this.secureFrame = this.confirmDialog.locator('iframe').contentFrame();
     this.approvalHeading = this.secureFrame.getByRole('heading', { name: /^Approve this payment of/ });
-    this.approveButton = this.secureFrame.getByRole('button', { name: 'Approve payment' });
+    this.approveButton = this.secureFrame.getByRole('button', { name: 'Approve', exact: true });
   }
 
   /** The value cell of a row in the 'Transfer details' table. */

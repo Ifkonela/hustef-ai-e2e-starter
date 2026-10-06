@@ -14,12 +14,12 @@ export class TransferPage {
   constructor(readonly page: Page) {
     this.heading = page.getByRole('heading', { name: 'New transfer' });
     this.fromAccount = page.getByRole('combobox', { name: 'From account' });
-    this.beneficiaryName = page.getByRole('textbox', { name: 'Beneficiary name' });
+    this.beneficiaryName = page.getByRole('textbox', { name: 'Payee name' });
     this.iban = page.getByRole('textbox', { name: 'IBAN' });
     this.checkIbanButton = page.getByRole('button', { name: 'Check IBAN' });
     this.ibanVerified = page.getByText(/IBAN verified: GRM-SHADOW-[A-Z0-9]{4}/);
     this.amount = page.getByRole('textbox', { name: 'Amount (HUF)' });
-    this.continueButton = page.getByRole('button', { name: 'Continue' });
+    this.continueButton = page.getByRole('button', { name: 'Review transfer' });
   }
 
   async goto() {

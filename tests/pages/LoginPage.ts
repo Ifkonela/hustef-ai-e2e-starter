@@ -8,10 +8,10 @@ export class LoginPage {
   readonly alert: Locator;
 
   constructor(readonly page: Page) {
-    this.heading = page.getByRole('heading', { name: 'Sign in to Gremlin Bank' });
-    this.username = page.getByLabel('Username');
+    this.heading = page.getByRole('heading', { name: 'Welcome back' });
+    this.username = page.getByLabel('User ID');
     this.password = page.getByLabel('Password');
-    this.signInButton = page.getByRole('button', { name: 'Sign in' });
+    this.signInButton = page.getByRole('button', { name: 'Log in' });
     this.alert = page.getByRole('alert');
   }
 
