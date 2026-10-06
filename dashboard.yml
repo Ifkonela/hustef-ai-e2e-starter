@@ -1,0 +1,85 @@
+- generic [active] [ref=f1e1]:
+  - link "Skip to main content" [ref=f1e2] [cursor=pointer]:
+    - /url: "#main"
+  - banner [ref=f1e3]:
+    - note [ref=f1e4]: Demo app for the HUSTEF 2026 workshop. Not a real bank. Do not enter real data.
+    - generic [ref=f1e5]:
+      - link "Gremlin Bank" [ref=f1e6] [cursor=pointer]:
+        - /url: /
+      - generic [ref=f1e11]:
+        - generic [ref=f1e12]:
+          - text: Signed in as
+          - strong [ref=f1e13]: demo
+        - button "Sign out" [ref=f1e15] [cursor=pointer]
+  - main [ref=f1e16]:
+    - generic [ref=f1e17]:
+      - generic [ref=f1e18]:
+        - generic [ref=f1e19]:
+          - heading "Accounts" [level=1] [ref=f1e20]
+          - img "Security check passed. Code GRM-ARIA-K9F3" [ref=f1e21]
+        - link "New transfer" [ref=f1e25] [cursor=pointer]:
+          - /url: /transfer
+      - paragraph [ref=f1e27]: "Session code: GRM-HELLO-7Q2K"
+      - generic [ref=f1e29]:
+        - region [ref=f1e30]:
+          - heading "Everyday Account" [level=2] [ref=f1e31]
+          - paragraph [ref=f1e32]:
+            - generic [ref=f1e33]: IBAN
+            - generic [ref=f1e34]: HU39 9992 0265 3141 5926 5358 9797
+          - paragraph [ref=f1e35]:
+            - generic [ref=f1e36]: Balance
+            - generic [ref=f1e37]: 1,250,000 HUF
+        - region [ref=f1e38]:
+          - heading "Savings Account" [level=2] [ref=f1e39]
+          - paragraph [ref=f1e40]:
+            - generic [ref=f1e41]: IBAN
+            - generic [ref=f1e42]: HU03 9992 0265 2718 2818 2845 9043
+          - paragraph [ref=f1e43]:
+            - generic [ref=f1e44]: Balance
+            - generic [ref=f1e45]: 5,400,000 HUF
+      - generic [ref=f1e46]:
+        - generic [ref=f1e47]:
+          - heading "Tip of the day" [level=2] [ref=f1e48]
+          - paragraph [ref=f1e49]: Use a password that you do not use anywhere else.
+        - generic [ref=f1e50]:
+          - heading "Exchange rate" [level=2] [ref=f1e51]
+          - paragraph [ref=f1e52]:
+            - generic [ref=f1e53]: EUR/HUF
+            - generic [ref=f1e54]: "392.35"
+          - paragraph [ref=f1e55]: Indicative rate. Updated on every page load.
+      - generic [ref=f1e57]:
+        - heading "Spending in the last 30 days" [level=2] [ref=f1e58]
+        - button "Show chart data" [ref=f1e59] [cursor=pointer]
+      - generic [ref=f1e62]:
+        - heading "Recent transactions" [level=2] [ref=f1e63]
+        - table "Recent transactions" [ref=f1e65]:
+          - rowgroup [ref=f1e66]:
+            - row [ref=f1e67]:
+              - columnheader "Date" [ref=f1e68]
+              - columnheader "Description" [ref=f1e69]
+              - columnheader "Amount" [ref=f1e70]
+          - rowgroup [ref=f1e71]:
+            - row [ref=f1e72]:
+              - cell "2026-09-30" [ref=f1e73]
+              - cell "Grocery store, Budapest" [ref=f1e74]
+              - cell "-18,450 HUF" [ref=f1e75]
+            - row [ref=f1e76]:
+              - cell "2026-09-29" [ref=f1e77]
+              - cell "Salary, Gremlin Works Ltd." [ref=f1e78]
+              - cell "+685,000 HUF" [ref=f1e79]
+            - row [ref=f1e80]:
+              - cell "2026-09-27" [ref=f1e81]
+              - cell "Mobile phone bill" [ref=f1e82]
+              - cell "-7,990 HUF" [ref=f1e83]
+            - row [ref=f1e84]:
+              - cell "2026-09-25" [ref=f1e85]
+              - cell "Card payment, bookshop" [ref=f1e86]
+              - cell "-12,300 HUF" [ref=f1e87]
+            - row [ref=f1e88]:
+              - cell "2026-09-24" [ref=f1e89]
+              - cell "Transfer from Savings Account" [ref=f1e90]
+              - cell "+50,000 HUF" [ref=f1e91]
+  - contentinfo [ref=f1e92]:
+    - generic [ref=f1e93]:
+      - paragraph [ref=f1e94]: Gremlin Bank is a fictional bank. It exists only as practice material for test automation.
+      - paragraph [ref=f1e95]: Release 1
