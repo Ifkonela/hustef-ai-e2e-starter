@@ -113,7 +113,8 @@ test.describe('Domestic transfer', () => {
     }
   }
 
-  test('[high] Minimum fee of 200 HUF applies up to the threshold', async () => {
+  test('[high] Minimum fee of 200 HUF applies up to the threshold', async ({ gremlinRelease }) => {
+    test.fail(gremlinRelease === 3, 'BUG: fee on release 3: expected 200 HUF for 10,000 HUF (0.3% of the amount, min 200, max 6,000 HUF), observed 300 HUF (3%). Not healed, see heal-report.json.');
     // 1. Data-driven: for each row choose account, Kiss Péter, amount, Continue, read the review page
     await checkFeeRows([
       { from: 'Everyday Account', amount: 1, fee: 200, total: 201 },
@@ -122,7 +123,8 @@ test.describe('Domestic transfer', () => {
     ]);
   });
 
-  test('[high] Fee is 0.3% of the amount above the minimum', async () => {
+  test('[high] Fee is 0.3% of the amount above the minimum', async ({ gremlinRelease }) => {
+    test.fail(gremlinRelease === 3, 'BUG: fee on release 3: expected 201 HUF for 67,000 HUF (0.3% of the amount, min 200, max 6,000 HUF), observed 2,010 HUF (3%). Not healed, see heal-report.json.');
     // 1. Data-driven: for each row choose account, Kiss Péter, amount, Continue, read the review page
     await checkFeeRows([
       { from: 'Everyday Account', amount: 67000, fee: 201, total: 67201 },
@@ -131,7 +133,8 @@ test.describe('Domestic transfer', () => {
     ]);
   });
 
-  test('[high] Fee is capped at 6,000 HUF', async () => {
+  test('[high] Fee is capped at 6,000 HUF', async ({ gremlinRelease }) => {
+    test.fail(gremlinRelease === 3, 'BUG: fee on release 3: expected 5,997 HUF for 1,999,000 HUF (0.3% of the amount, min 200, max 6,000 HUF), observed 59,970 HUF (3%, cap not applied). Not healed, see heal-report.json.');
     // 1. Data-driven: for each row choose account, Kiss Péter, amount, Continue, read the review page
     await checkFeeRows([
       { from: 'Savings Account', amount: 1999000, fee: 5997, total: 2004997 },
